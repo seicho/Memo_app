@@ -6,5 +6,6 @@ This is a simple memo app without DBMS.
 3. access http://localhost:4567/
 4. login with username.
    * Password isn't required.
+   * sampleuser prepared. Please put 'sampleuser' in login form.
    ![image](https://github.com/seicho/Memo_app/assets/16710992/ca7dff61-44c9-4e5d-aae2-a8461a170616)
 5. Enjoy!
