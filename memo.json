@@ -1,10 +1,10 @@
-{"sample_user": {
+{"sampleuser": {
   "1": {
     "title":"test",
     "body":"test"
     }
   },
- "sample_user2": {
+ "sampleuser2": {
   "1": {
     "title": "test2",
     "body" : "test2"
