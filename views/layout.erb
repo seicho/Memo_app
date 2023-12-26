@@ -10,7 +10,7 @@
     <h1>Memo App</h1>
   </header>
   <nav>
-    <% if !session[:username].nil?%>
+    <% if !session[:username].nil? %>
     <a href="/<%= session[:username] %>/memo">Top page</a>
     <a href="/<%= session[:username] %>/memo/new">New Memo</a>
     <a href="/logout">Logout</a>

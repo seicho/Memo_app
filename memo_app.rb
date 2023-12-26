@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'sinatra'
 require 'cgi'
-require_relative './lib/memo_app_method.rb'
+require_relative './lib/memo_app_method'
 
 set :environment, :development
-set :sessions => true, :expire_after => 1200, :session_secret => SecureRandom.hex(32)
+set sessions: true, expire_after: 1200, session_secret: SecureRandom.hex(32)
 
 controler = Controler.new
 
@@ -21,11 +23,11 @@ post '/auth' do
   redirect "#{session[:username]}/memo"
 end
 
-get "/:username/memo" do
+get '/:username/memo' do
   erb :index
 end
 
-get '/:username/memo/new'  do
+get '/:username/memo/new' do
   erb :add_memo
 end
 
@@ -63,13 +65,13 @@ get '/*' do
   session[:username] && redirect("/#{session[:username]}/memo")
   redirect '/'
 end
-  
+
 before '/:username/memo*' do
   session[:username].nil? && redirect('/login')
 end
 
-#  ログインしているユーザーからの実在しないmemo_idに対するリクエストをリダイレクト 
+#  ログインしているユーザーからの実在しないmemo_idに対するリクエストをリダイレクト
 before '/:username/memo/:memo_id/?*' do
-  params[:memo_id] == "new" && return
+  params[:memo_id] == 'new' && return
   session[:memo_manager].find_memo(params[:memo_id]).nil? && redirect("/#{session[:username]}/memo")
 end

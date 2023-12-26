@@ -1,13 +1,1 @@
-{"sampleuser": {
-  "1": {
-    "title":"test",
-    "body":"test"
-    }
-  },
- "sampleuser2": {
-  "1": {
-    "title": "test2",
-    "body" : "test2"
-    }
-  }
-}
+{"sampleuser":{"1":{"title":"test","body":"test"}}}

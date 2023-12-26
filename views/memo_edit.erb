@@ -1,4 +1,4 @@
-<form action="/<%=session[:username]%>/memo/<%= params[:memo_id] %>" method="post">
+<form action="/<%= session[:username] %>/memo/<%= params[:memo_id] %>" method="post">
 <label for="title">Title:</label>
 <br>
 <input class="text" type="text" name="title" id="title" value="<%= @memo.title %>">

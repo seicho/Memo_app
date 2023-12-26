@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'json'
 
 class Memo
   attr_reader :title, :body
-  
+
   def initialize(title, body)
     @title = title
     @body = body
@@ -31,11 +33,11 @@ class MemoManager
   end
 
   def max_id
-    memos.keys.map{ |k| k.to_s.to_i }.max
+    memos.keys.map { |k| k.to_s.to_i }.max
   end
 
   def new_id
-    memos.empty? ? "1".to_sym : (max_id + 1).to_s.to_sym
+    memos.empty? ? '1'.to_sym : (max_id + 1).to_s.to_sym
   end
 
   def modify_memo(id, title, body)
@@ -49,7 +51,7 @@ class MemoManager
     end
     nil
   end
-  
+
   def delete_memo(id)
     memos.delete(id.to_sym)
     controler.save(user, memos)
@@ -58,6 +60,7 @@ end
 
 class Controler
   attr_accessor :all_memos, :storage_manager
+
   def initialize
     @storage_manager = StorageManager.new
     @all_memos = {}
@@ -66,7 +69,7 @@ class Controler
   def generate_memo_manager(user)
     open_all_memos
     user = user.to_sym
-    !user_exist?(user) && create_user_space(user) 
+    !user_exist?(user) && create_user_space(user)
     MemoManager.new(all_memos[user], user, self)
   end
 
@@ -81,13 +84,13 @@ class Controler
   end
 
   def user_exist?(user)
-    all_memos.has_key?(user)
+    all_memos.key?(user)
   end
 
   def create_user_space(user)
     all_memos[user] = {}
   end
-  
+
   def save(user, memo)
     update_all_memos(user, memo)
     storage_manager.write(formatted_all_memos)
@@ -99,16 +102,15 @@ class Controler
 
   def formatted_all_memos
     all_memos.map do |user, memos|
-      converted_memos = memos.map do |id, memo| 
-          [id, {:title=> memo.title, :body=> memo.body}]
-        end.to_h
-      [user,converted_memos]
+      converted_memos = memos.transform_values { |memo| { title: memo.title, body: memo.body } }
+      [user, converted_memos]
     end.to_h
   end
 end
 
 class StorageManager
   attr_accessor :path
+
   def initialize
     @path = "#{File.dirname(__FILE__, 2)}/memo.json"
   end
