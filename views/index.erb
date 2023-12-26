@@ -1,0 +1,9 @@
+<div class="memo">
+  <ul>
+    <% session[:memo_manager].each do |id, title| %>
+    <li>
+      <a href="/<%= session[:username] %>/memo/<%= id %>"><%= title %></a><br>
+    </li>
+    <% end %>
+  </ul>
+</div>

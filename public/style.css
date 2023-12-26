@@ -1,0 +1,51 @@
+header {
+  background-color: rgb(71, 21, 206);
+  color: white;
+  width: 300px;
+  text-align: center;
+}
+
+input.text {
+  width: 20em;
+}
+
+nav {
+  width: 300px;
+}
+nav a {
+  text-decoration: none;
+  padding: 10px;
+  font-weight: 600;
+}
+
+.memo {
+  width: 300px;
+  height: auto;
+  font-size: 20px;
+  margin-bottom: 10px; 
+  padding: 5px;
+}
+
+.button {
+  display       : inline-block;
+  border-radius : 5%;          /* 角丸       */
+  font-size     : 12px;
+  text-align    : center;      /* 文字位置   */
+  cursor        : pointer;     /* カーソル   */
+  padding       : 6px 6px;   /* 余白       */
+  background    : #000066;     /* 背景色     */
+  color         : #ffffff;     /* 文字色     */
+  line-height   : 1em;         /* 1行の高さ  */
+  transition    : .3s;         /* なめらか変化 */
+  border        : 2px solid #000066;    /* 枠の指定 */
+  text-decoration: none;
+}
+
+.inline-form {
+  display:inline-block;
+}
+
+.memo-body {
+  display: inline-block;
+  text-align: left
+}

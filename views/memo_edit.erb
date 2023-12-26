@@ -1,0 +1,13 @@
+<form action="/<%=session[:username]%>/memo/<%= params[:memo_id] %>" method="post">
+<label for="title">Title:</label>
+<br>
+<input class="text" type="text" name="title" id="title" value="<%= @memo.title %>">
+<br>
+<label for="body">Body:</label>
+<br>
+<textarea name="body" id="body" rows="5" cols="50"><%= @memo.body %></textarea>
+<br>
+<input type="hidden" name="_method" value="patch">
+<input class="button" type="submit" value="Save">
+<input class="button" type="reset" value="Reset">
+</form>
