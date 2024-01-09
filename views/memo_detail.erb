@@ -5,8 +5,8 @@
   </div>
 </div>
 <div>
-  <a class="button" href="/memo/<%= params[:memo_id] %>/edit">Edit</a>
-  <form class="inline-form" action="/memo/<%= params[:memo_id] %>" method="post">
+  <a class="button" href="/memos/<%= params[:memo_id] %>/edit">Edit</a>
+  <form class="inline-form" action="/memos/<%= params[:memo_id] %>" method="post">
   <input class="button" type="submit" value="Delete">
   <input type="hidden" name="_method" value="delete">
   </form>
