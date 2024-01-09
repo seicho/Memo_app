@@ -1,0 +1,13 @@
+<div class="memo">
+  <p>Title: <%= h @memo.title %></p>
+  <div class="memo-body">
+  <p><%= h @memo.body %></p>
+  </div>
+</div>
+<div>
+  <a class="button" href="/memos/<%= params[:memo_id] %>/edit">Edit</a>
+  <form class="inline-form" action="/memos/<%= params[:memo_id] %>" method="post">
+  <input class="button" type="submit" value="Delete">
+  <input type="hidden" name="_method" value="delete">
+  </form>
+</div>
