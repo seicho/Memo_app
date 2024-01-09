@@ -2,7 +2,7 @@
   <ul>
     <% session[:memo_manager].each do |id, title| %>
     <li>
-      <a href="/memo/<%= hattr id %>"><%= h title %></a><br>
+      <a href="/memos/<%= hattr id %>"><%= h title %></a><br>
     </li>
     <% end %>
   </ul>
