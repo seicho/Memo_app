@@ -29,7 +29,7 @@ end
 post '/auth' do
   session[:username] = params[:username].to_sym
   session[:memo_manager] = MemoManager.new(session[:username])
-  redirect '/memo'
+  redirect '/memos'
 end
 
 get '/memos' do
@@ -42,7 +42,7 @@ end
 
 post '/memos' do
   latest_id = session[:memo_manager].add(params[:title], params[:body])
-  redirect "/memo/#{latest_id}"
+  redirect "/memos/#{latest_id}"
 end
 
 get '/memos/:memo_id' do
@@ -57,12 +57,12 @@ end
 
 patch '/memos/:memo_id' do
   session[:memo_manager].modify(params[:memo_id], params[:title], params[:body])
-  redirect "/memo/#{params[:memo_id]}"
+  redirect "/memos/#{params[:memo_id]}"
 end
 
 delete '/memos/:memo_id' do
   session[:memo_manager].delete(params[:memo_id])
-  redirect '/memo'
+  redirect '/memos'
 end
 
 get '/logout' do
@@ -71,8 +71,8 @@ get '/logout' do
 end
 
 get '/*' do
-  session[:username] && redirect('/memo')
-  redirect '/'
+  session[:username] && redirect('/memos')
+  redirect '/login'
 end
 
 before '/memos*' do
@@ -82,5 +82,5 @@ end
 #  ログインしているユーザーからの実在しないmemo_idに対するリクエストをリダイレクト
 before '/memos/:memo_id/?*' do
   params[:memo_id] == 'new' && return
-  session[:memo_manager].find(params[:memo_id]).nil? && redirect('/memo')
+  session[:memo_manager].find(params[:memo_id]).nil? && redirect('/memos')
 end
