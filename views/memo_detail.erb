@@ -1,12 +1,12 @@
 <div class="memo">
-  <p>Title: <%= @memo.title %></p>
+  <p>Title: <%= h @memo.title %></p>
   <div class="memo-body">
-  <p><%= @memo.body %></p>
+  <p><%= h @memo.body %></p>
   </div>
 </div>
 <div>
-  <a class="button" href="/<%= session[:username] %>/memo/<%= params[:memo_id] %>/edit">Edit</a>
-  <form class="inline-form" action="/<%= session[:username] %>/memo/<%= params[:memo_id] %>" method="post">
+  <a class="button" href="/memo/<%= params[:memo_id] %>/edit">Edit</a>
+  <form class="inline-form" action="/memo/<%= params[:memo_id] %>" method="post">
   <input class="button" type="submit" value="Delete">
   <input type="hidden" name="_method" value="delete">
   </form>

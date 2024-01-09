@@ -1,11 +1,11 @@
-<form action="/<%= session[:username] %>/memo/<%= params[:memo_id] %>" method="post">
+<form action="/memo/<%= params[:memo_id] %>" method="post">
 <label for="title">Title:</label>
 <br>
-<input class="text" type="text" name="title" id="title" value="<%= @memo.title %>">
+<input class="text" type="text" name="title" id="title" value="<%= h @memo.title %>">
 <br>
 <label for="body">Body:</label>
 <br>
-<textarea name="body" id="body" rows="5" cols="50"><%= @memo.body %></textarea>
+<textarea name="body" id="body" rows="5" cols="50"><%= h @memo.body %></textarea>
 <br>
 <input type="hidden" name="_method" value="patch">
 <input class="button" type="submit" value="Save">

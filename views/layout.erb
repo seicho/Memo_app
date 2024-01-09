@@ -11,8 +11,8 @@
   </header>
   <nav>
     <% if !session[:username].nil? %>
-    <a href="/<%= session[:username] %>/memo">Top page</a>
-    <a href="/<%= session[:username] %>/memo/new">New Memo</a>
+    <a href="/memo">Top page</a>
+    <a href="/memo/new">New Memo</a>
     <a href="/logout">Logout</a>
     <% end %>
   </nav>
