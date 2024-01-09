@@ -32,35 +32,35 @@ post '/auth' do
   redirect '/memo'
 end
 
-get '/memo' do
+get '/memos' do
   erb :index
 end
 
-get '/memo/new' do
+get '/memos/new' do
   erb :add_memo
 end
 
-post '/memo' do
+post '/memos' do
   latest_id = session[:memo_manager].add(params[:title], params[:body])
   redirect "/memo/#{latest_id}"
 end
 
-get '/memo/:memo_id' do
+get '/memos/:memo_id' do
   @memo = session[:memo_manager].find(params[:memo_id])
   erb :memo_detail
 end
 
-get '/memo/:memo_id/edit' do
+get '/memos/:memo_id/edit' do
   @memo = session[:memo_manager].find(params[:memo_id])
   erb :memo_edit
 end
 
-patch '/memo/:memo_id' do
+patch '/memos/:memo_id' do
   session[:memo_manager].modify(params[:memo_id], params[:title], params[:body])
   redirect "/memo/#{params[:memo_id]}"
 end
 
-delete '/memo/:memo_id' do
+delete '/memos/:memo_id' do
   session[:memo_manager].delete(params[:memo_id])
   redirect '/memo'
 end
@@ -75,12 +75,12 @@ get '/*' do
   redirect '/'
 end
 
-before '/memo*' do
+before '/memos*' do
   session[:username].nil? && redirect('/login')
 end
 
 #  ログインしているユーザーからの実在しないmemo_idに対するリクエストをリダイレクト
-before '/memo/:memo_id/?*' do
+before '/memos/:memo_id/?*' do
   params[:memo_id] == 'new' && return
   session[:memo_manager].find(params[:memo_id]).nil? && redirect('/memo')
 end
