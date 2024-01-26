@@ -1,8 +1,8 @@
 <div class="memo">
   <ul>
-    <% session[:memo_manager].each do |id, title| %>
+    <% @memos.each do |id, memo| %>
     <li>
-      <a href="/memos/<%= hattr id %>"><%= h title %></a><br>
+      <a href="/memos/<%= hattr id %>"><%= h memo.title %></a><br>
     </li>
     <% end %>
   </ul>
