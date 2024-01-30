@@ -23,6 +23,10 @@ helpers do
   def memo_manager
     MemoManager.new(current_user)
   end
+
+  def invalid_memo_id?
+    memo_manager.find(params[:memo_id]).nil?
+  end
 end
 
 get '/' do
@@ -54,21 +58,25 @@ post '/memos' do
 end
 
 get '/memos/:memo_id' do
+  invalid_memo_id? && redirect('/memos')
   @memo = memo_manager.find(params[:memo_id])
   erb :memo_detail
 end
 
 get '/memos/:memo_id/edit' do
+  invalid_memo_id? && redirect('/memos')
   @memo = memo_manager.find(params[:memo_id])
   erb :memo_edit
 end
 
 patch '/memos/:memo_id' do
-  memo_manager.modify(params[:memo_id], params[:title], params[:body])
+  invalid_memo_id? && redirect('/memos')
+  memo_manager.modify(id: params[:memo_id], title: params[:title], body: params[:body])
   redirect "/memos/#{params[:memo_id]}"
 end
 
 delete '/memos/:memo_id' do
+  invalid_memo_id? && redirect('/memos')
   memo_manager.delete(params[:memo_id])
   redirect '/memos'
 end
@@ -85,10 +93,4 @@ end
 
 before '/memos*' do
   current_user.nil? && redirect('/login')
-end
-
-#  ログインしているユーザーからの実在しないmemo_idに対するリクエストをリダイレクト
-before '/memos/:memo_id/?*' do
-  params[:memo_id] == 'new' && return
-  memo_manager.find(params[:memo_id]).nil? && redirect('/memos')
 end

@@ -5,11 +5,10 @@ require 'securerandom'
 class MemoManager
   attr_reader :memos
 
-  Memo = Struct.new(:title, :body)
+  Memo = Data.define(:title, :body)
 
   def initialize(user)
-    users = storage_manager.user_list
-    @memos = users.include?(user.to_sym) ? memos_to_instance(storage_manager.read(user)) : {}
+    @memos = memos_to_instance(storage_manager.read(user)) || {}
     @user = user
   end
 
@@ -20,7 +19,7 @@ class MemoManager
     new_id
   end
 
-  def modify(id, title, body)
+  def modify(id:, title:, body:)
     @memos[id.to_sym] = Memo.new(title, body)
     storage_manager.save(@user, memos_to_hash)
   end
@@ -48,6 +47,6 @@ class MemoManager
   end
 
   def memos_to_instance(memos_hash)
-    memos_hash.transform_values { |memo| Memo.new(memo[:title], memo[:body]) }
+    memos_hash&.transform_values { |memo| Memo.new(memo[:title], memo[:body]) }
   end
 end
