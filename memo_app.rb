@@ -19,14 +19,6 @@ helpers do
   def current_user
     session[:username]
   end
-
-  def memo_manager
-    MemoManager.new(current_user)
-  end
-
-  def invalid_memo_id?
-    memo_manager.find(params[:memo_id]).nil?
-  end
 end
 
 get '/' do
@@ -44,7 +36,7 @@ post '/auth' do
 end
 
 get '/memos' do
-  @memos = memo_manager.memos
+  @memos = MemoManager.new(current_user).memos
   erb :index
 end
 
@@ -53,30 +45,34 @@ get '/memos/new' do
 end
 
 post '/memos' do
-  latest_id = memo_manager.add(params[:title], params[:body])
+  latest_id = MemoManager.new(current_user).add(params[:title], params[:body])
   redirect "/memos/#{latest_id}"
 end
 
 get '/memos/:memo_id' do
-  invalid_memo_id? && redirect('/memos')
+  memo_manager = MemoManager.new(current_user)
+  memo_manager.find(params[:memo_id]).nil? && redirect('/memos')
   @memo = memo_manager.find(params[:memo_id])
   erb :memo_detail
 end
 
 get '/memos/:memo_id/edit' do
-  invalid_memo_id? && redirect('/memos')
+  memo_manager = MemoManager.new(current_user)
+  memo_manager.find(params[:memo_id]).nil? && redirect('/memos')
   @memo = memo_manager.find(params[:memo_id])
   erb :memo_edit
 end
 
 patch '/memos/:memo_id' do
-  invalid_memo_id? && redirect('/memos')
+  memo_manager = MemoManager.new(current_user)
+  memo_manager.find(params[:memo_id]).nil? && redirect('/memos')
   memo_manager.modify(id: params[:memo_id], title: params[:title], body: params[:body])
   redirect "/memos/#{params[:memo_id]}"
 end
 
 delete '/memos/:memo_id' do
-  invalid_memo_id? && redirect('/memos')
+  memo_manager = MemoManager.new(current_user)
+  memo_manager.find(params[:memo_id]).nil? && redirect('/memos')
   memo_manager.delete(params[:memo_id])
   redirect '/memos'
 end
