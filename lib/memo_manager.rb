@@ -8,20 +8,20 @@ class MemoManager
   Memo = Data.define(:title, :body)
 
   def initialize(user)
-    @memos = memos_to_instance(storage_manager.read(user)) || {}
+    @memos = memos_to_instance(StorageManager.new.read(user)) || {}
     @user = user
   end
 
   def add(title, body)
     new_id = SecureRandom.uuid
     memos[new_id.to_sym] = Memo.new(title, body)
-    storage_manager.save(@user, memos_to_hash)
+    StorageManager.new.save(@user, memos_to_hash)
     new_id
   end
 
   def modify(id:, title:, body:)
     @memos[id.to_sym] = Memo.new(title, body)
-    storage_manager.save(@user, memos_to_hash)
+    StorageManager.new.save(@user, memos_to_hash)
   end
 
   def find(id)
@@ -33,14 +33,10 @@ class MemoManager
 
   def delete(id)
     @memos.delete(id.to_sym)
-    storage_manager.save(@user, memos_to_hash)
+    StorageManager.new.save(@user, memos_to_hash)
   end
 
   private
-
-  def storage_manager
-    StorageManager.new
-  end
 
   def memos_to_hash
     @memos.transform_values { |memo| { title: memo.title, body: memo.body } }
