@@ -2,7 +2,9 @@
 
 source 'https://rubygems.org'
 
+gem 'config'
 gem 'erb_lint', require: false
+gem 'pg'
 gem 'sinatra'
 gem 'webrick'
 
