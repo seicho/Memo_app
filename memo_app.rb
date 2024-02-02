@@ -51,26 +51,34 @@ end
 
 get '/memos/:memo_id' do
   memo_manager = MemoManager.new(current_user)
-  @memo = memo_manager.find(params[:memo_id]) || redirect('/memos')
+  @memo = memo_manager.find(params[:memo_id])
+  redirect '/memos' and return if @memo.nil?
+
   erb :memo_detail
 end
 
 get '/memos/:memo_id/edit' do
   memo_manager = MemoManager.new(current_user)
-  @memo = memo_manager.find(params[:memo_id]) || redirect('/memos')
+  @memo = memo_manager.find(params[:memo_id])
+  redirect '/memos' and return if @memo.nil?
+
   erb :memo_edit
 end
 
 patch '/memos/:memo_id' do
   memo_manager = MemoManager.new(current_user)
-  memo_manager.find(params[:memo_id]) || redirect('/memos')
+  @memo = memo_manager.find(params[:memo_id])
+  redirect '/memos' and return if @memo.nil?
+
   memo_manager.modify(id: params[:memo_id], title: params[:title], body: params[:body])
   redirect "/memos/#{params[:memo_id]}"
 end
 
 delete '/memos/:memo_id' do
   memo_manager = MemoManager.new(current_user)
-  memo_manager.find(params[:memo_id]) || redirect('/memos')
+  @memo = memo_manager.find(params[:memo_id])
+  redirect '/memos' and return if @memo.nil?
+
   memo_manager.delete(params[:memo_id])
   redirect '/memos'
 end
@@ -81,10 +89,11 @@ get '/logout' do
 end
 
 get '/*' do
-  current_user && redirect('/memos')
+  redirect '/memos' and return if current_user
+
   redirect '/login'
 end
 
 before '/memos*' do
-  current_user.nil? && redirect('/login')
+  redirect '/login' if current_user.nil?
 end
