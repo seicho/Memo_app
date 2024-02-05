@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_relative './storage_manager'
+require_relative './database_manager'
 
-class UserManager < StorageManager
+class UserManager < DatabaseManager
   def find_user(username)
     res = @conn.exec(
       'SELECT id FROM users WHERE username = $1', [username]

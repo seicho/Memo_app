@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_relative './storage_manager'
+require_relative './database_manager'
 
-class MemoManager < StorageManager
+class MemoManager < DatabaseManager
   def read(user_id)
     res = @conn.exec(
       'SELECT memos.id, memos.title, memos.body FROM memos WHERE user_id = $1', [user_id]

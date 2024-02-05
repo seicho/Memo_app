@@ -3,7 +3,7 @@
 require 'pg'
 require_relative './database'
 
-class StorageManager
+class DatabaseManager
   def initialize
     @conn = Database.connect :development
   end
