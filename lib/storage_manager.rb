@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'pg'
-require_relative '../config/database'
+require_relative './database'
 
 class StorageManager
   def initialize

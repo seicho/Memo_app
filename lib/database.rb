@@ -3,7 +3,7 @@
 require 'config'
 
 module Database
-  Config.load_and_set_settings("#{File.dirname(__FILE__)}/settings.yml")
+  Config.load_and_set_settings("#{File.dirname(__FILE__, 2)}/config/settings.yml")
   def self.connect(env)
     db_config = Settings.__send__ env
     connection = PG.connect(
