@@ -1,5 +1,5 @@
 # Memo_app 
-This is a simple memo app wit postgresql.
+This is a simple memo app with postgresql.
 ## Getting Started
 1. $bundle install
 2. $sudo chmod u+x ./db/build_db.sh
