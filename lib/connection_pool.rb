@@ -11,7 +11,7 @@ class ConnectionPool
   end
 
   def hold
-    @connection_pool.push(@db.build_connection) and p('make_new connection') if @connection_pool.empty?
+    @connection_pool.push(@db.build_connection) if @connection_pool.empty?
     @active_connections << @connection_pool.pop
     yield @active_connections.last
   end
