@@ -9,7 +9,7 @@ class Database
     Config.load_and_set_settings("#{File.dirname(__FILE__, 2)}/config/settings.yml")
     @env = :development
     @db_config = Settings.__send__ @env
-    @pool = ConnectionPool.new(self)
+    @conn = build_connection
   end
 
   def build_connection
@@ -25,11 +25,6 @@ class Database
   end
 
   def query(sqls, var = nil)
-    res = nil
-    @pool.hold do |conn|
-      res = conn.exec(sqls, var)
-      @pool.checkin(conn)
-    end
-    res
+    @conn.exec(sqls, var)
   end
 end

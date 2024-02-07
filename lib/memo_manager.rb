@@ -2,7 +2,7 @@
 
 require_relative './database'
 
-module MemoManager
+class MemoManager
   def read(*)
     raise NotImplementedError,
           "This #{self.class} cannot respond to"

@@ -3,7 +3,7 @@
 require_relative './database'
 require_relative './user_manager'
 
-module UserManager
+class UserManager
   def find(*)
     raise NotImplementedError,
           "This #{self.class} cannot respond to"
