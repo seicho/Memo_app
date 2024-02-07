@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'pg'
+require 'config'
 require_relative './connection_pool'
 
 class Database
@@ -23,10 +24,10 @@ class Database
     connection
   end
 
-  def query(sqls, v=nil)
+  def query(sqls, var = nil)
     res = nil
     @pool.hold do |conn|
-      res = conn.exec(sqls, v)
+      res = conn.exec(sqls, var)
       @pool.checkin(conn)
     end
     res

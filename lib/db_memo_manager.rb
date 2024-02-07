@@ -3,9 +3,10 @@
 require_relative './database'
 require_relative './memo_manager'
 
-class DbMemoManager < MemoManager
+class DbMemoManager
+  include MemoManager
+
   def initialize(db)
-    super
     @db = db
   end
 

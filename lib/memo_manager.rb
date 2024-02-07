@@ -2,34 +2,34 @@
 
 require_relative './database'
 
-class MemoManager
-  def read(user_id)
-    raise NotImpementedError,
+module MemoManager
+  def read(*)
+    raise NotImplementedError,
           "This #{self.class} cannot respond to"
   end
 
-  def save(user_id:, title:, body:)
-    raise NotImpementedError,
+  def save(*)
+    raise NotImplementedError,
           "This #{self.class} cannot respond to"
   end
 
-  def update(id:, title:, body:)
-    raise NotImpementedError,
+  def update(*)
+    raise NotImplementedError,
           "This #{self.class} cannot respond to"
   end
 
-  def delete(target_id)
-    raise NotImpementedError,
+  def delete(*)
+    raise NotImplementedError,
           "This #{self.class} cannot respond to"
   end
 
-  def latest_id
-    raise NotImpementedError,
+  def latest_id(*)
+    raise NotImplementedError,
           "This #{self.class} cannot respond to"
   end
 
-  def find(user_id, target_id)
-    raise NotImpementedError,
+  def find(*)
+    raise NotImplementedError,
           "This #{self.class} cannot respond to"
   end
 end

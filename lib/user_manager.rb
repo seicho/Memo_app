@@ -3,12 +3,14 @@
 require_relative './database'
 require_relative './user_manager'
 
-class UserManager
-  def find(username)
-    raise 'Implement me'
+module UserManager
+  def find(*)
+    raise NotImplementedError,
+          "This #{self.class} cannot respond to"
   end
 
-  def create(username)
-    raise 'Implement me'
+  def create(*)
+    raise NotImplementedError,
+          "This #{self.class} cannot respond to"
   end
 end

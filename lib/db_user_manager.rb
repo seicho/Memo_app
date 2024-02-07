@@ -4,6 +4,8 @@ require_relative './database'
 require_relative './user_manager'
 
 class DbUserManager
+  include UserManager
+
   def initialize(db)
     @db = db
   end

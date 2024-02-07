@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-require 'config'
-require 'pg'
-require_relative './database.rb'
+require_relative './database'
 
 class ConnectionPool
   def initialize(db)
