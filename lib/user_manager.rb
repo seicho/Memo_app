@@ -1,21 +1,14 @@
 # frozen_string_literal: true
 
-require_relative './database_manager'
+require_relative './database'
+require_relative './user_manager'
 
-class UserManager < DatabaseManager
-  def find_user(username)
-    res = @conn.exec(
-      'SELECT id FROM users WHERE username = $1', [username]
-    )
-    return nil if res.ntuples.zero?
-
-    res[0][:id] # return user_id
+class UserManager
+  def find(username)
+    raise 'Implement me'
   end
 
-  def create_user(username)
-    @conn.exec(
-      'INSERT INTO users (username) VALUES ($1)', [username]
-    )
-    find_user(username) # return user_id
+  def create(username)
+    raise 'Implement me'
   end
 end
