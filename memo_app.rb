@@ -52,7 +52,7 @@ end
 
 post '/memos' do
   memo_manager = DbMemoManager.new(db)
-  memo_manager.save(user_id: session[:user_id], title: params[:title], body: params[:body])
+  memo_manager.create(user_id: session[:user_id], title: params[:title], body: params[:body])
   redirect "/memos/#{memo_manager.latest_id}"
 end
 

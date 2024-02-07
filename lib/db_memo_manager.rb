@@ -21,7 +21,7 @@ class DbMemoManager
     user_memos
   end
 
-  def save(user_id:, title:, body:)
+  def create(user_id:, title:, body:)
     res = @db.query(
       'INSERT iNTO memos (user_id, title, body) VALUES ($1, $2, $3)', [user_id, title, body]
     )
@@ -49,9 +49,9 @@ class DbMemoManager
     res.getvalue(0, 0)
   end
 
-  def find(user_id, target_id)
+  def find(user_id, target_memo_id)
     res = @db.query(
-      'SELECT body, title FROM memos WHERE user_id = $1 AND id = $2', [user_id, target_id]
+      'SELECT body, title FROM memos WHERE user_id = $1 AND id = $2', [user_id, target_memo_id]
     )
     return nil if res.ntuples.zero?
 
