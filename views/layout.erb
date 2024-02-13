@@ -18,6 +18,11 @@
   </nav>
   <br>
   <main>
+    <% flash.keys.each do |type| %>
+      <div id="flash">
+        <%= flash[type] %>
+      </div>
+    <% end %>
     <%= yield %>
   </main>
 </body>

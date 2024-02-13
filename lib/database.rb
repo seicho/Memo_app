@@ -2,13 +2,12 @@
 
 require 'pg'
 require 'config'
-require_relative './connection_pool'
 
 class Database
   def initialize
     Config.load_and_set_settings("#{File.dirname(__FILE__, 2)}/config/settings.yml")
     @env = :development
-    @db_config = Settings.__send__ @env
+    @db_config = Settings.public_send @env
     @conn = build_connection
   end
 

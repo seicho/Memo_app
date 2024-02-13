@@ -19,9 +19,9 @@ class DbUserManager < UserManager
   end
 
   def create(username)
-    @db.query(
-      'INSERT INTO users (username) VALUES ($1)', [username]
+    res = @db.query(
+      'INSERT INTO users (username) VALUES ($1) RETURNING id', [username]
     )
-    find(username) # return user_id
+    res.getvalue(0, 0) # return the inserted user_id
   end
 end

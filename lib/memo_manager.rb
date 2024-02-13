@@ -8,7 +8,7 @@ class MemoManager
           "This #{self.class} cannot respond to"
   end
 
-  def save(*)
+  def create(*)
     raise NotImplementedError,
           "This #{self.class} cannot respond to"
   end

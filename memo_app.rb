@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'sinatra'
+require 'sinatra/flash'
 require_relative './lib/database'
 require_relative './lib/db_memo_manager'
 require_relative './lib/db_user_manager'
@@ -52,8 +53,13 @@ end
 
 post '/memos' do
   memo_manager = DbMemoManager.new(db)
-  memo_manager.create(user_id: session[:user_id], title: params[:title], body: params[:body])
-  redirect "/memos/#{memo_manager.latest_id}"
+  if memo_manager.create(user_id: session[:user_id], title: params[:title], body: params[:body])
+    flash[:notice] = 'Memo was successfully saved.'
+    redirect "/memos/#{memo_manager.latest_id}"
+  else
+    flash[:notice] = 'Sorry for Memo cannot saved.'
+    redirect '/memos/new'
+  end
 end
 
 get '/memos/:memo_id' do
@@ -76,7 +82,11 @@ patch '/memos/:memo_id' do
   memo_manager = DbMemoManager.new(db)
   redirect '/memos' and return if memo_manager.find(session[:user_id], params[:memo_id]).nil?
 
-  memo_manager.update(id: params[:memo_id], title: params[:title], body: params[:body])
+  flash[:notice] = if memo_manager.update(id: params[:memo_id], title: params[:title], body: params[:body])
+                     'Memo was successfully updated.'
+                   else
+                     'Sorry for memo was not succesfully updated.'
+                   end
   redirect "/memos/#{params[:memo_id]}"
 end
 
@@ -84,8 +94,13 @@ delete '/memos/:memo_id' do
   memo_manager = DbMemoManager.new(db)
   redirect '/memos' and return if memo_manager.find(session[:user_id], params[:memo_id]).nil?
 
-  memo_manager.delete(params[:memo_id])
-  redirect '/memos'
+  if memo_manager.delete(params[:memo_id])
+    flash[:notice] = 'Memo was successfully deleted.'
+    redirect '/memos'
+  else
+    flash[:notice] = "Couldn't delete this memo."
+    redirect "/memos/#{params[:memo_id]}"
+  end
 end
 
 get '/logout' do

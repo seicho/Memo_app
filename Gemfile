@@ -6,6 +6,7 @@ gem 'config'
 gem 'erb_lint', require: false
 gem 'pg'
 gem 'sinatra'
+gem 'sinatra-flash'
 gem 'webrick'
 
 group :development do
