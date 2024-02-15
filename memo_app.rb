@@ -98,7 +98,7 @@ delete '/memos/:memo_id' do
     flash[:notice] = 'Your memo was successfully deleted.'
     redirect '/memos'
   else
-    flash[:notice] = 'Failed to delete this memo.'
+    flash[:notice] = 'Failed to delete your memo.'
     redirect "/memos/#{params[:memo_id]}"
   end
 end
