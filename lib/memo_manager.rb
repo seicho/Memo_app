@@ -1,48 +1,35 @@
 # frozen_string_literal: true
 
-require 'securerandom'
+require_relative './database'
 
 class MemoManager
-  attr_reader :memos
-
-  Memo = Data.define(:title, :body)
-
-  def initialize(user)
-    @memos = memos_to_instance(StorageManager.new.read(user)) || {}
-    @user = user
+  def read(*)
+    raise NotImplementedError,
+          "This #{self.class} cannot respond to"
   end
 
-  def add(title, body)
-    new_id = SecureRandom.uuid
-    memos[new_id.to_sym] = Memo.new(title, body)
-    StorageManager.new.save(@user, memos_to_hash)
-    new_id
+  def create(*)
+    raise NotImplementedError,
+          "This #{self.class} cannot respond to"
   end
 
-  def modify(id:, title:, body:)
-    @memos[id.to_sym] = Memo.new(title, body)
-    StorageManager.new.save(@user, memos_to_hash)
+  def update(*)
+    raise NotImplementedError,
+          "This #{self.class} cannot respond to"
   end
 
-  def find(id)
-    @memos.each do |target_id, memo|
-      return memo if target_id == id.to_sym
-    end
-    nil
+  def delete(*)
+    raise NotImplementedError,
+          "This #{self.class} cannot respond to"
   end
 
-  def delete(id)
-    @memos.delete(id.to_sym)
-    StorageManager.new.save(@user, memos_to_hash)
+  def latest_id(*)
+    raise NotImplementedError,
+          "This #{self.class} cannot respond to"
   end
 
-  private
-
-  def memos_to_hash
-    @memos.transform_values { |memo| { title: memo.title, body: memo.body } }
-  end
-
-  def memos_to_instance(memos_hash)
-    memos_hash&.transform_values { |memo| Memo.new(memo[:title], memo[:body]) }
+  def find(*)
+    raise NotImplementedError,
+          "This #{self.class} cannot respond to"
   end
 end

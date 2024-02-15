@@ -47,5 +47,14 @@ nav a {
 
 .memo-body {
   display: inline-block;
-  text-align: left
+  text-align: left;
+}
+
+#flash {
+  display: inline-block;
+  background-color: blue;
+  border-radius: 5px;
+  padding: 5px;
+  color: white;
+  font-weight: 600;
 }
