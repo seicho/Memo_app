@@ -57,7 +57,7 @@ post '/memos' do
     flash[:notice] = 'Memo was successfully saved.'
     redirect "/memos/#{memo_manager.latest_id}"
   else
-    flash[:notice] = 'Sorry for Memo cannot saved.'
+    flash[:notice] = 'Faild to save your memo.'
     redirect '/memos/new'
   end
 end
@@ -83,9 +83,9 @@ patch '/memos/:memo_id' do
   redirect '/memos' and return if memo_manager.find(session[:user_id], params[:memo_id]).nil?
 
   flash[:notice] = if memo_manager.update(id: params[:memo_id], title: params[:title], body: params[:body])
-                     'Memo was successfully updated.'
+                     'Your memo was successfully updated.'
                    else
-                     'Sorry for memo was not succesfully updated.'
+                     'Failed to update your memo.'
                    end
   redirect "/memos/#{params[:memo_id]}"
 end
@@ -95,10 +95,10 @@ delete '/memos/:memo_id' do
   redirect '/memos' and return if memo_manager.find(session[:user_id], params[:memo_id]).nil?
 
   if memo_manager.delete(params[:memo_id])
-    flash[:notice] = 'Memo was successfully deleted.'
+    flash[:notice] = 'Your memo was successfully deleted.'
     redirect '/memos'
   else
-    flash[:notice] = "Couldn't delete this memo."
+    flash[:notice] = 'Failed to delete this memo.'
     redirect "/memos/#{params[:memo_id]}"
   end
 end
